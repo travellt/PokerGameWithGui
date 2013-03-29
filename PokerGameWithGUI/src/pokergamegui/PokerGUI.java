@@ -72,25 +72,20 @@ public class PokerGUI extends JFrame {
         		//New Game
         		gameStart();
         	}
-        });
-		
+        });	
 	}
 	
 	public void gameStart(){
 		TablePanel tp = new TablePanel(this, game);
 		contentPane.add(tp);
 		dealerSwaps = game.players.get(0).evaluateTheHand();
-		printWinner(game.getWinner().getClass().getName());
-		
+		printWinner(game.getWinner());	
 	}
-	
 	
 	public void swapPlayersCards(int[] swaps){
 		
-	
 		 game.players.get(1).swapCards(swaps, game.getDeck());
 		 game.players.get(0).swapCards(dealerSwaps, game.getDeck());
-		
 	}
 	
 	public void printWinner(String longname){		
@@ -103,7 +98,18 @@ public class PokerGUI extends JFrame {
 		else
 		JOptionPane.showMessageDialog(this, "Round 1 is a draw" 
 			     ,"Results of round 1", JOptionPane.PLAIN_MESSAGE);
-		return;
+	}
+	
+	public void printOverallWinner(String longname){		
+		if (longname.equals("dealer"))
+			 JOptionPane.showMessageDialog(this, "The Dealer has won" 
+		     ,"Final result", JOptionPane.PLAIN_MESSAGE);
+		else if (longname.equals("player"))
+			JOptionPane.showMessageDialog(this, "You have won" 
+			     ,"Final Result", JOptionPane.PLAIN_MESSAGE);
+		else
+		JOptionPane.showMessageDialog(this, "The game is a draw" 
+			     ,"Final Result", JOptionPane.PLAIN_MESSAGE);
 	}
 	
 	public void display() {
