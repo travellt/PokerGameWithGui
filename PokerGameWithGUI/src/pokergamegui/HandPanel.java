@@ -167,8 +167,7 @@ public class HandPanel extends JPanel
 		}
 	}
     
-	public void buttonClicked()
-	{
+	public void buttonClicked() {
 		table.setMessages();
 	}
     
