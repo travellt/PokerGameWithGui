@@ -14,8 +14,8 @@ import java.util.Vector;
  * @description
  * The HandEvaulator class is an abstract class which takes a player Hand
  * and then returns a rank from 1 - 7 dependent on the contents of the Hand. 
- * If both player hands have the same rank, HandEvaluator will return a 
- * string specifying which of the two players has won.
+ * If both player hands have the same rank, HandEvaluator can also be used
+ * to return a string specifying which of the two players has won.
  * 
  */
 
@@ -305,75 +305,67 @@ public static String drawnHand(int rank,PokerGamePerson dealer,PokerGamePerson p
                 			
                 }
                 
-                case 1:{ 
-                     int dealerPair = 0;
-                     int playerPair = 0;
-                     
-                     for (int x = 0; x <= playerHand.size()-1 ;x++){
-                    	 for (int y = 0; y <= playerHand.size()-1;y++){
-                    		 if (playerHand.get(y).getValue() == playerHand.get(x).getValue() && x != y)
-                    			 playerPair = playerHand.get(y).getValue();
-                    	 }
-                    }
-                    
-                     for (int x = 0; x <= dealerHand.size()-1;x++){
-                    	 for (int y = 0; y <= dealerHand.size()-1;y++){
-                    		 if (dealerHand.get(y).getValue() == dealerHand.get(x).getValue() && x != y)
-                    			 dealerPair = dealerHand.get(y).getValue();
-                    	 }
-                    }
-                     
-                    if (dealerPair > playerPair)
-                    	 return dealerreturn;
-                    else if (dealerPair < playerPair)
-                    	 return playerreturn;
-                    else {
-                    	
-                    	Vector<Card> dealernonpairs = new Vector<Card>();
-                    	Vector<Card> playernonpairs = new Vector<Card>();
-                    
-                    
-	                    for (int x = 0; x <= playerHand.size()-1;x++){
-	                       	 for (int y = 0; y <= playerHand.size()-1;y++){
+                case 1:{
+                    int dealerPair = 0;
+                    int playerPair = 0;
+
+                    for (int x = 0; x <= playerHand.size()-1 ;x++){
+                   	 for (int y = 0; y <= playerHand.size()-1;y++){
+                   		 if (playerHand.get(y).getValue() == playerHand.get(x).getValue() && x != y)
+                   			 playerPair = playerHand.get(y).getValue();
+                   	 }
+                   }
+
+                    for (int x = 0; x <= dealerHand.size()-1;x++){
+                   	 for (int y = 0; y <= dealerHand.size()-1;y++){
+                   		 if (dealerHand.get(y).getValue() == dealerHand.get(x).getValue() && x != y)
+                   			 dealerPair = dealerHand.get(y).getValue();
+                   	 }
+                   }
+
+                   if (dealerPair > playerPair)
+                   	 return dealerreturn;
+                   else if (dealerPair < playerPair)
+                   	 return playerreturn;
+                   else {
+
+                   	Vector<Card> dealernonpairs = new Vector<Card>();
+                   	Vector<Card> playernonpairs = new Vector<Card>();
+
+
+	                    for (int x = 0; x <= playerHand.size()-1 ; x++){
+	                       	 int count = 0;
+	                       	 for (int y = 0; y <= playerHand.size()-1 ;y++){
 	                       		 if (playerHand.get(y).getValue() != playerHand.get(x).getValue())
-	                       			 playernonpairs.add(playerHand.get(x));
+	                       			 count++;
+	                       	 	if (count == 3)
+	                       	 		playernonpairs.add(playerHand.get(x));
 	                       	 }
 	                       }
-	                    
-                    
-	                    for (int x = 0; x <= dealerHand.size()-1;x++){
-	                    	for (int y = 0; y <= dealerHand.size()-1;y++){
-	                    		if (dealerHand.get(y).getValue() != dealerHand.get(x).getValue())
-	                    			dealernonpairs.add(dealerHand.get(x));
-	                   		}
-	                    }
-	                
-	                    for (int x = 0 ; x < dealernonpairs.size() ; x++){
-	                		int count = 0;
-	                		for (int y = 0; y < playernonpairs.size();y++){
-	                			if (dealernonpairs.get(x).getValue() > playernonpairs.get(y).getValue())
-	                				count++;
-	                			if (count == 5)
-	                				return dealerreturn;
+
+
+	                    for (int x = 0; x <= dealerHand.size()-1 ; x++){
+	                       	 int count = 0;
+	                       	 for (int y = 0; y <= dealerHand.size()-1 ;y++){
+	                       		 if (dealerHand.get(y).getValue() != dealerHand.get(x).getValue())
+	                       			 count++;
+	                       	 	if (count == 3)
+	                       	 		dealernonpairs.add(dealerHand.get(x));
+	                       	 }
+	                       }
+
+	                    for (int x = 2 ; x >= 0 ; x--){
+	                		if (dealernonpairs.get(x).getValue() > playernonpairs.get(x).getValue())
+	                			return dealerreturn;
+	                		else if (dealernonpairs.get(x).getValue() < playernonpairs.get(x).getValue())
+	                			return playerreturn;
 	                		}
-	                	}
-	
-	                	for (int x = 0 ; x < playernonpairs.size() ; x++){
-	                		int count = 0;
-	                		for (int y = 0; y < dealernonpairs.size();y++){
-	                			if (dealernonpairs.get(x).getValue() < playernonpairs.get(y).getValue())
-	                				count++;
-	                			if (count == 5)
-	                				return playerreturn;
-	                		}
-	                	}
-                				
-	                	return drawreturn; 
-                    }
-                }
-                
-                    
-                    
+
+	                    return drawreturn;
+                   }
+               }
+
+                	
                 case 0:{
                 	
                 	                		

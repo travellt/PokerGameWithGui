@@ -44,7 +44,7 @@ public class PokerGUI extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setLocationRelativeTo(null);
-		//gameStart();
+		
 		
 		
 		JMenuBar menuBar = new JMenuBar();		
@@ -85,10 +85,9 @@ public class PokerGUI extends JFrame {
 		
 		if(tp != null) {			
 			contentPane.remove(tp);
-			game.newDeck();
 		}
 		
-		tp = new TablePanel(this, game); //not working as expected on new game.
+		tp = new TablePanel(this, game); 
 		contentPane.add(tp);
 		pack();
 		

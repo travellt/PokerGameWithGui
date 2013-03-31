@@ -15,7 +15,7 @@ public class Game {
 	
     protected Vector<PokerGamePerson> players;
     public PokerGUI gameGui;
-    private Deck deck = new Deck();
+    private Deck deck;
     private int playerCount = 0;
     
     /**
@@ -38,13 +38,9 @@ public class Game {
        playerCount = x; 
        init();
     }
-    
-    public void newDeck(){
-    	deck = new Deck();
-    	deck.shuffleTheCards();
-    }
-    
+  
     public void init(){
+    	deck = new Deck();
     	players = new Vector<PokerGamePerson>();
         PokerGamePersonFactory personFactory = new PokerGamePersonFactory();
         PokerGamePerson dealer = personFactory.returnPerson("dealer");
