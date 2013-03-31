@@ -1,3 +1,5 @@
+//  @authors James Willby, Tom Travell & David Price-Williams, MSc PokerGame coursework 2013
+
 package pokergamegui;
 
 import javax.swing.JButton;
