@@ -4,10 +4,17 @@
  */
 package pokergamegui;
 import java.util.*;
+
 /**
  *
- * @author jameswillby
+ * @authors James Willby, Tom Travell & David Price-Williams, MSc PokerGame coursework 2013
+ * 
+ * @description
+ * The Deck class holds a vector of Card i.e the deck of cards we will need for the game. The Deck
+ * is responsible for for setting up and shuffling the cards, returning the size of the deck and dealing
+ * card 
  */
+
 public class Deck {
     
 private Random r = new Random();    
@@ -17,10 +24,10 @@ private Vector<Card> deck = null;
 
 public Deck()       
 {
-        deck = new Vector<Card>(); // initialize the empty vector
+        deck = new Vector<Card>(); /** initialize the empty vector */
         for (int x = 0; x < suits.length;x++)
         for(int y =2;y < values.length;y++)
-        deck.add(new Card(suits[x],values[y])); // add the cards of each suite in order
+        deck.add(new Card(suits[x],values[y])); /** add the cards of each suite in order */
 }
 
 public int cardsIntheDeck()
@@ -28,7 +35,7 @@ public int cardsIntheDeck()
         return deck.size();
 }
 
-private int generateRandomNumber(int size){ // generates a random number for the shuffling method
+private int generateRandomNumber(int size){ /** generates a random number for the shuffling method */
        return r.nextInt(size); 
 }                                         
 
@@ -45,7 +52,7 @@ public void shuffleTheCards(){
                 }
     else
             {
-                for(int x = 0;x < deck.size();x++) //Start at the first card and re-arrange the deck
+                for(int x = 0;x < deck.size();x++) /** Start at the first card and re-arrange the deck */
                 {
                      int position1 = generateRandomNumber(deck.size());
                      int position2 = generateRandomNumber(deck.size());

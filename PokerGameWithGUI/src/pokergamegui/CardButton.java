@@ -23,9 +23,9 @@ class CardButton extends JComponent implements MouseListener
 {
     private static final long serialVersionUID = 1L;
 
-    private Dimension cardSize = new Dimension(40,60);
-    final Font fnt1 = new Font("SansSerif", Font.BOLD, 18);
-    final Font fnt2 = new Font("SansSerif", Font.BOLD, 11);
+    private Dimension cardSize = new Dimension(50,70);
+    final Font fnt1 = new Font("SansSerif", Font.BOLD, 20);
+    final Font fnt2 = new Font("SansSerif", Font.BOLD, 13);
     
     private ArrayList<ActionListener> listeners = new ArrayList<ActionListener>();
     private boolean mouseEntered = false;
@@ -44,7 +44,7 @@ class CardButton extends JComponent implements MouseListener
         }
     }
     
-    public String val;
+    public int val;
     public String suit;
     public int pos;
     public boolean selected = false;
@@ -82,7 +82,7 @@ class CardButton extends JComponent implements MouseListener
     {
         super.paintComponent(g);
 
-        if(val != "-")
+        if(val != -1)
         {
             Graphics2D antiAlias = (Graphics2D)g;
             antiAlias.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -112,7 +112,9 @@ class CardButton extends JComponent implements MouseListener
             if(hand.enabled){
             drawCenteredString(Suits.valueOf(suit.toUpperCase()).toString(), cardSize.width, cardSize.height, g);
             g.setFont(fnt2);
-            drawStringTopAndBotom(val, cardSize.width, cardSize.height, g);
+
+            String strVal = (val<=10)? String.valueOf(val):getFaceCard(val); 
+            drawStringTopAndBotom(strVal, cardSize.width, cardSize.height, g);
             }
             else{
             	drawCenteredString(hand.DECKBG, cardSize.width, cardSize.height, g);
@@ -121,6 +123,25 @@ class CardButton extends JComponent implements MouseListener
             
         }
     }
+    
+    public String getFaceCard(int val){
+    	
+    	switch(val) {
+	        case 11:
+	        	return "J";
+	        case 12:
+	        	return "Q";
+	        case 13:
+	        	return "K";
+	        case 14:
+	            return "A";
+	        default:
+	        	return String.valueOf(val);
+
+	    }
+    	
+    }
+    
     //Draw Suit
     public void drawCenteredString(String s, int w, int h, Graphics g) {
        FontMetrics fm = g.getFontMetrics();
@@ -144,16 +165,19 @@ class CardButton extends JComponent implements MouseListener
         // Number of values in a suit
         int values = 14;
         int numSuits = 4;
-        val = String.valueOf((int)(Math.random() * values + 1));
+        val = (int)(Math.random() * values + 1);
         suit = Suits.values()[(int)(Math.random() * numSuits)].toString();
     }
     public void mouseClicked(MouseEvent e)
     {
     }
+    
+    
     public void mouseEntered(MouseEvent e)
     {
+    	
         mouseEntered = true;
-        if(val != "-" && hand.enabled)
+        if(val != -1 && hand.enabled && hand.selectedCount <3)
         {
             setCursor(new Cursor(Cursor.HAND_CURSOR));
         }
@@ -174,7 +198,7 @@ class CardButton extends JComponent implements MouseListener
     public void mouseReleased(MouseEvent e)
     {
         mousePressed = false;
-        if(val != "" && hand.enabled)
+        if(val != 0 && hand.enabled )
         {
         	
         	hand.selectCard(pos);

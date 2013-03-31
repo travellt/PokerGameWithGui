@@ -6,16 +6,19 @@ package pokergamegui;
 import java.util.Vector;
 /**
  *
- * @author jameswillby
+ * @authors James Willby, Tom Travell & David Price-Williams, MSc PokerGame coursework 2013
+ * 
+ * 
+ * @description
+ * Hand is, in effect, a way of typing a Vector<Card>. Basic Vector operations are
+ * overridden and Hand also provides a matched card method 
+ * 
  */
 public class Hand {
  
     protected Vector<Card> hand = null;
 
-    Hand() {
-        this.hand = new Vector<Card>();
-    }
-    
+    Hand() { this.hand = new Vector<Card>(); }
     
     public void add(Card e)
     {
@@ -26,13 +29,19 @@ public class Hand {
     {
     hand.setElementAt(c, position);
     }
+    
     public int size()
     { return hand.size();}
+    
     
     public Card get(int position){
        return hand.get(position);
     }
-    
+     
+    /**
+     * The matchedCard method takes a second hand and determines
+     * whether the hands contain the same card
+     */
     
     
     boolean matchedCard(Hand otherHand){

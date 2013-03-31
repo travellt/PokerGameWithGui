@@ -6,8 +6,14 @@ package pokergamegui;
 
 /**
  *
- * @author jameswillby
+ *  @authors James Willby, Tom Travell & David Price-Williams, MSc PokerGame coursework 2013
+ *  
+ *  @description
+ *  The Card class is the most basic of the PokerGame. A Card is a simple container for storing
+ *  the name of the Suit and the value of the Card. Aside from the getters and mutators,
+ *  the Card also contains an equals method 
  */
+
 public class Card {
     
     private String suit;

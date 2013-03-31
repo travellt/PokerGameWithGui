@@ -4,6 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
+/**
+ * @authors James Willby, Tom Travell & David Price-Williams, MSc PokerGame coursework 2013
+ * 
+ * @description
+ *  The DealerAI class takes the current dealer Hand and returns a Vector of Card,
+ *  these being the cards that the DealerAI believes should be changed to give
+ *  the dealer the best chance of winning the game. The evaluation is based on 
+ *  swapping one, two or three cards and then calling HandEvaluator to determine 
+ *  the alterations in the rank. Once the best alteration in the rank has been located
+ *  the selected cards are returned in the Vector.  
+ */
+
 public class DealerAI {
 	
 	 Hand hand;
@@ -14,7 +26,7 @@ public class DealerAI {
 	int currentrank;
 	
         public DealerAI(Hand myhand) {  
-		this.hand = new Hand(); //create new Hand so doesn't alter it
+		this.hand = new Hand(); /** create new Hand so doesn't alter it*/
 		for (int k = 0; k < myhand.size(); k++)  
 			hand.add(myhand.get(k));
                 
@@ -34,7 +46,7 @@ public class DealerAI {
              * 1,2 or 3 cards. The double returns the effect on rank of the current 
              * hand for making the specified number of changes
              */ 
-		 if (currentrank >= 4)
+		if (currentrank >= 4)
 				return swapcardsnocards;
 
 		if (currentrank == 2){
@@ -62,27 +74,27 @@ public class DealerAI {
 	 public int[] CardstoArray(Vector<Card> throwCards) {
 	        
 	       
-	        List<Integer> array = new ArrayList<Integer>(); // we can’t alter the size of an array. So we need a work around using a List.
+	        List<Integer> array = new ArrayList<Integer>(); /** we can't alter the size of an array. So we need a work around using a List. */
 	        
 	        if(throwCards.size() == 0) {int[] x = new int[0]; return x;}
 	        
 	        for (int x = 0; x < throwCards.size();x++){
-	        	for (int y = 0; y < hand.size();y++){ // cards is the player hand.
+	        	for (int y = 0; y < hand.size();y++){ /** cards is the player hand. */
 	        		if (hand.get(y).equals(throwCards.get(x)) && !array.contains(Integer.valueOf(y)))
 	            array.add(new Integer(y));
 	        }}
 	        
-	        int[] x = new int[array.size()]; // now initialise our return array to be the same size as our List.
+	        int[] x = new int[array.size()]; /** now initialise our return array to be the same size as our List. */
 	        
 	        for (int z = 0; z < array.size();z++)
-	        x[z] = array.get(z).intValue(); // add the values
+	        x[z] = array.get(z).intValue(); /** add the values */
 	        
-	        return x; // return the array
+	        return x; /** return the array */
 	}
 	 
 	private  Double rankDiffSwapOneCard() {
 	
-    Double rankdiffonecard = 0.0; // rank difference
+    Double rankdiffonecard = 0.0; /** rank difference */
 	Card bestcardtoswap = null;
 	
 
@@ -203,21 +215,17 @@ public class DealerAI {
 		Double rankdiffifswapped = 0.0;
 		SpecialDeck tempdeck = new SpecialDeck(hand);
 		for (int j = 0; j < 47 ; j++){
+			
 			Hand temphand = new Hand();
 			for (int k = 0; k < hand.size(); k++){
 				if (k == cardi)
-					temphand.add(tempdeck.get(j));
+					temphand.add(tempdeck.returnTheTopCard());
 				else temphand.add(hand.get(k));
 				}
-			Hand temphand2 = new Hand();
-			for (int z = 0; z < hand.size(); z++)
-				temphand2.add(temphand.get(z));
-			temphand2.add(hand.get(cardi));
-			SpecialDeck tempdeck2 = new SpecialDeck(temphand2);
 			
-				for (int l = 0; l < 46; l++){
+				for (int l = 0; l < tempdeck.cardsInDeck(); l++){
 					
-				temphand.setElementAt(tempdeck2.get(l), cardm);
+				temphand.setElementAt(tempdeck.get(l), cardm);
 				int temphandrank = HandEvaluator.assessHand(temphand);
 				int temprankdiff = temphandrank - currentrank;
 				rankdiffifswapped = rankdiffifswapped + temprankdiff;
@@ -232,29 +240,18 @@ public class DealerAI {
 			
 		Double rankdiffifswapped = 0.0;
 		SpecialDeck tempdeck = new SpecialDeck(hand);
-			for (int j = 0; j < 47 ; j++){
-                            Hand temphand = new Hand();
+		for (int j = 0; 0 < tempdeck.cardsInDeck() ; j++){
+                Hand temphand = new Hand();
 				for (int k = 0; k < hand.size(); k++){
 					if (k == cardi)
-						temphand.add(tempdeck.get(j));
+						temphand.add(tempdeck.returnTheTopCard());
 					else temphand.add(hand.get(k));
-					}
-				Hand temphand2 = new Hand();
-				for (int z = 0; z < hand.size(); z++)
-					temphand2.add(temphand.get(z));
-				temphand2.add(hand.get(cardi));
-				SpecialDeck tempdeck2 = new SpecialDeck(temphand2);
-				for (int l = 0; l < 46; l++){
-					temphand.setElementAt(tempdeck2.get(l), cardm);
-				Hand temphand3 = new Hand();
-				for (int z = 0; z < hand.size(); z++)
-					temphand3.add(hand.get(z));
-					temphand3.add(hand.get(cardi));
-					temphand3.add(hand.get(cardm));
-					SpecialDeck tempdeck3 = new SpecialDeck(temphand3);
-				for (int m = 0; m < 45; m ++){
-					
-					temphand.setElementAt(tempdeck3.get(m), cardn);
+				}
+				
+				for (int l = tempdeck.cardsInDeck() - 1 ; l >= 1; l--){
+					temphand.setElementAt(tempdeck.get(l), cardm);
+				for (int m = l - 1 ; m >= 0 ; m--){
+					temphand.setElementAt(tempdeck.get(m), cardn);
 					int temphandrank = HandEvaluator.assessHand(temphand);
 					int temprankdiff = temphandrank - currentrank;
 					rankdiffifswapped = rankdiffifswapped + temprankdiff;

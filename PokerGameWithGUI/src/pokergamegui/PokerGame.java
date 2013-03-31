@@ -6,7 +6,11 @@ package pokergamegui;
 
 /**
  *
- * @author jameswillby
+ *@authors James Willby, Tom Travell & David Price-Williams, MSc PokerGame coursework 2013
+ *
+ *@description
+ *PokerGame contains main(), creates an instance of Game and instructs it to run.
+ *
  */
 public class PokerGame {
 
@@ -14,12 +18,9 @@ public class PokerGame {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
         
         Game game = new Game();
         game.run();
-        
-        
  }
 }
 
